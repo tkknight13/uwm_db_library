@@ -1,0 +1,23 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome Back</title>
+    <link rel="stylesheet" href="{% static 'css/user-styles.css' %}">
+</head>
+<body>
+    <div class="header">
+
+        <ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'view_books' %}">View Books</a></li>
+            <li><a href="{% url 'logout' %}">Log Out</a></li>
+        </ul>
+    </div>
+<h1> Lib Database plz</h1>
+    <h3>This is for the library database</h2>
+
+    <br> <br> Please <a href="{% url 'login' %}">log in</a> to view more events
+</body>
+</html>

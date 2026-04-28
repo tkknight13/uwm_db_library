@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Browse Books</title>
+</head>
+<body>
+
+<h1>Available Books</h1>
+
+<ul>
+    {% for book in books %}
+        <li>
+            <strong>{{ book.title }}</strong> by {{ book.author }}
+            {% if book.available %}
+                (Available)
+            {% else %}
+                (Checked Out)
+            {% endif %}
+        </li>
+    {% empty %}
+        <li>No books found.</li>
+    {% endfor %}
+</ul>
+
+</body>
+</html>
