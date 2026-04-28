@@ -1,10 +1,23 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Campus Event Manager</title>
+    <link rel="stylesheet" href="{% static 'css/user-styles.css' %}">
 </head>
 <body>
-        `<h1>Home Page</h1>
+    <div class="header">
+
+        <ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'login' %}">View Books</a></li>
+            <li><a href="{% url 'login' %}">Log In</a></li>
+        </ul>
+    </div>
+<h1> Lib Database plz</h1>
+    <h3>This is for the library database</h2>
+
+    <br> <br> Please <a href="{% url 'login' %}">log in</a> to view more events
 </body>
 </html>
