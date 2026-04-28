@@ -16,8 +16,15 @@
         </ul>
     </div>
 <h1> Lib Database plz</h1>
-    <h3>This is for the library database</h2>
+<h2>Your Checked Out Books</h2>
 
-    <br> <br> Please <a href="{% url 'login' %}">log in</a> to view more events
+{% for item in borrowed_books %}
+    <p>
+        {{ item.book.title }} by {{ item.book.author }}
+    </p>
+{% empty %}
+    <p>You have no books checked out.</p>
+{% endfor %}
+
 </body>
 </html>

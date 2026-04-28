@@ -2,9 +2,9 @@ from django.contrib import messages
 from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import User
-from django.shortcuts import render, redirect
-
-from home.models import Book
+from django.shortcuts import render, redirect, get_object_or_404
+from home.models import Book, Checkout
+from .forms import BookForm
 
 
 def home_view(request):
@@ -99,9 +99,70 @@ def signup_view(request):
     return render(request, 'signup.html')
 
 
+@login_required
 def student_home(request):
-    return render(request, 'student_home.html')
+    borrowed_books = Checkout.objects.filter(user=request.user)
+    books = Book.objects.all()
+
+    return render(request, "student_home.html", {
+        "borrowed_books": borrowed_books,
+        "books": books
+    })
 
 def view_books(request):
     books = Book.objects.all()
     return render(request, 'view_books.html', {'books': books})
+
+@login_required
+@user_passes_test(is_admin)
+def add_book(request):
+    form = BookForm(request.POST or None)
+
+    if form.is_valid():
+        form.save()
+        return redirect('admin_home')
+
+    return render(request, 'book_form.html', {'form': form})
+
+
+@login_required
+@user_passes_test(is_admin)
+def edit_book(request, pk):
+    book = get_object_or_404(Book, pk=pk)
+    form = BookForm(request.POST or None, instance=book)
+
+    if form.is_valid():
+        form.save()
+        return redirect('admin_home')
+
+    return render(request, 'book_form.html', {'form': form})
+
+
+@login_required
+@user_passes_test(is_admin)
+def delete_book(request, pk):
+    book = get_object_or_404(Book, pk=pk)
+    book.delete()
+    return redirect('admin_home')
+
+@login_required
+def checkout_book(request, pk):
+    book = get_object_or_404(Book, pk=pk)
+
+    checked_out_count = Checkout.objects.filter(book=book).count()
+
+    if checked_out_count < book.quantity:
+        Checkout.objects.create(user=request.user, book=book)
+
+    return redirect('student_home')
+
+@login_required
+def return_book(request, pk):
+    checkout = get_object_or_404(
+        Checkout,
+        user=request.user,
+        book_id=pk
+    )
+
+    checkout.delete()
+    return redirect('student_home')

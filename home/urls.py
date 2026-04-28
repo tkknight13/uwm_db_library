@@ -9,4 +9,9 @@ urlpatterns = [
     path('signup/', views.signup_view, name='signup'),
     path('student_home/', views.student_home, name='student_home'),
     path('books/', views.view_books, name='view_books'),
+    path('admin-home/', views.admin_home, name='admin_home'),
+    path('admin-home/add/', views.add_book, name='add_book'),
+    path('admin-home/edit/<int:pk>/', views.edit_book, name='edit_book'),
+    path('admin-home/delete/<int:pk>/', views.delete_book, name='delete_book'),
+    path('checkout/<int:pk>/', views.checkout_book, name='checkout_book'),
 ]
