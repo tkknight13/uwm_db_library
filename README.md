@@ -4,9 +4,9 @@ This project is an example of a local library website created with the Django fr
 ## Quick Start
 1. Open a terminal and run
    ```bash
-   git clone 
+   git clone https://github.com/tkknight13/uwm_db_library.git
 2. ```bash 
-   cd uwm_db_library
+   cd PycharmProjects\uwm_db_library
 
 3. ```bash
    python manage.py makemigrations
