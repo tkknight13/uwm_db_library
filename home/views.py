@@ -53,6 +53,11 @@ def login_view(request):
 @user_passes_test(is_admin, login_url='home')
 def admin_home(request):
     books = Book.objects.all()
+
+    for book in books:
+        checked_out = Checkout.objects.filter(book=book).count()
+        book.available_count = book.quantity - checked_out
+
     return render(request, 'admin_home.html', {'books': books})
 
 

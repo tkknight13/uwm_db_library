@@ -126,3 +126,7 @@ h3 {
 .books-table th {
     background-color: #f2f2f2;
 }
+
+details summary {
+    cursor: pointer;
+}
