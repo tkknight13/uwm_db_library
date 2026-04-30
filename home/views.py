@@ -52,7 +52,8 @@ def login_view(request):
 @login_required(login_url='login')
 @user_passes_test(is_admin, login_url='home')
 def admin_home(request):
-    return render(request, 'admin_home.html')
+    books = Book.objects.all()
+    return render(request, 'admin_home.html', {'books': books})
 
 
 @login_required(login_url='login')
