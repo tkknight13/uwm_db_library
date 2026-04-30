@@ -6,7 +6,7 @@ This project is an example of a local library website created with the Django fr
    ```bash
    git clone 
 2. ```bash 
-   cd django_local_library/locallibrary
+   cd uwm_db_library
 
 3. ```bash
    python manage.py makemigrations
