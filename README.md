@@ -1,0 +1,19 @@
+## Django Local Library
+This project is an example of a local library website created with the Django framework
+
+## Quick Start
+1. Open a terminal and run
+   ```bash
+   git clone 
+2. ```bash 
+   cd django_local_library/locallibrary
+
+3. ```bash
+   python manage.py makemigrations
+   python manage.py migrate
+   python manage.py collectstatic
+   python manage.py runserver
+
+4. Open in browser
+   ```bash
+   http://127.0.0.1:8000
