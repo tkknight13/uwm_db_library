@@ -111,6 +111,9 @@ def student_home(request):
     })
 
 def view_books(request):
+    query = request.GET.get('q', '')
+    books = Book.objects.filter(title__icontains=query) if query else Book.objects.all()
+    return render(request, 'view_books.html', {'books': books, 'query': query})
     books = Book.objects.all()
     return render(request, 'view_books.html', {'books': books})
 
@@ -167,3 +170,4 @@ def return_book(request, pk):
 
     checkout.delete()
     return redirect('student_home')
+
