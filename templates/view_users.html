@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin - Users</title>
+    <link rel="stylesheet" href="{% static 'css/user-styles.css' %}">
+</head>
+<body>
+
+<div class="header">
+    <ul>
+        <li><a href="{% url 'admin_home' %}">Home</a></li>
+        <li><a href="{% url 'add_book' %}">Add Book</a></li>
+        <li><a href="{% url 'view_users' %}">Users</a></li>
+        <li><a href="{% url 'logout' %}">Log Out</a></li>
+    </ul>
+</div>
+
+<h1>All Users</h1>
+
+<table class="users-table">
+    <tr>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Staff Status</th>
+        <th>Actions</th>
+    </tr>
+
+    {% for user in users %}
+    <tr>
+        <td>{{ user.username }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.is_staff }}</td>
+        <td>
+
+            {% if user != request.user %}
+            <form method="POST" action="{% url 'delete_user' user.id %}">
+                {% csrf_token %}
+                <button type="submit" class="delete-btn">Delete</button>
+            </form>
+            {% else %}
+                <em>Current User</em>
+            {% endif %}
+
+        </td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+</body>
+</html>

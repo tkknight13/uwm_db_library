@@ -171,3 +171,18 @@ def return_book(request, pk):
     checkout.delete()
     return redirect('student_home')
 
+
+@user_passes_test(is_admin, login_url='login')
+def view_users(request):
+    users = User.objects.all()
+    return render(request, 'view_users.html', {'users': users})
+
+
+@user_passes_test(is_admin, login_url='login')
+def delete_user(request, user_id):
+    if request.method == "POST":
+        user = get_object_or_404(User, id=user_id)
+
+        if user != request.user:
+            user.delete()
+    return redirect('view_users')
