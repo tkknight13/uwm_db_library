@@ -2,10 +2,10 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class Book(models.Model):
-    title = models.CharField(max_length=200)
-    author = models.CharField(max_length=200)
-    isbn = models.CharField(max_length=13, blank=True)
-    quantity = models.PositiveIntegerField(default=1)
+    title = models.CharField(max_length=200, null=False, blank=False)
+    author = models.CharField(max_length=200, null=False, blank=False)
+    isbn = models.CharField(max_length=13, null = False, blank=False, unique=True)
+    quantity = models.PositiveIntegerField(default=1, null=False, blank=False)
 
     def __str__(self):
         return self.title
