@@ -22,3 +22,15 @@ class Checkout(models.Model):
 
     def __str__(self):
         return f"{self.user.username} → {self.book.title}"
+
+
+class UsersBooks(models.Model):
+    id = models.IntegerField(primary_key=True)
+    user_id = models.IntegerField()
+    checked_out_at = models.DateTimeField(auto_now_add=False) #was true, trying this
+    title = models.CharField(max_length=200, null=False, blank=False)
+
+    class Meta:
+        managed = False  # Django won't manage this model's table/view
+        db_table = 'users_books'  # Must match the view name in SQL
+        verbose_name = 'Users Books'

@@ -43,6 +43,9 @@
             {% endif %}
 
         </td>
+        <td><a href="{% url 'view_user_books' user.id %}">
+                <button type="button" class="books-btn">View Books</button>
+            </a></td>
     </tr>
     {% endfor %}
 

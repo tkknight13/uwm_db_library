@@ -3,7 +3,7 @@ from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, get_object_or_404
-from home.models import Book, Checkout
+from home.models import Book, Checkout, UsersBooks
 from .forms import BookForm
 
 
@@ -191,3 +191,9 @@ def delete_user(request, user_id):
         if user != request.user:
             user.delete()
     return redirect('view_users')
+
+@user_passes_test(is_admin, login_url='login')
+def view_user_books(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    books = UsersBooks.objects.filter(user_id=user_id)
+    return render(request, 'user_books.html', {'books': books, 'selected_user': user})
