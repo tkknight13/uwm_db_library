@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Books</title>
+    <link rel="stylesheet" href="{% static 'css/user-styles.css' %}">
+</head>
+<body>
+
+<h1>Available Books</h1>
+
+<table>
+    <tr>
+        <th>Title</th>
+        <th>Author</th>
+        <th>ISBN</th>
+        <th>Total Copies</th>
+        <th>Checked Out</th>
+        <th>Action</th>
+    </tr>
+
+    {% for book in books %}
+        <tr>
+            <td>{{ book.title }}</td>
+            <td>{{ book.author }}</td>
+            <td>{{ book.isbn }}</td>
+            <td>{{ book.quantity }}</td>
+
+            <td>
+                {{ book.checkout_set.count }}
+            </td>
+
+            <td>
+                {% if book.checkout_set.count < book.quantity %}
+                    <a href="{% url 'checkout_book' book.id %}">
+                        Checkout
+                    </a>
+                {% else %}
+                    Not available
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+</table>
+
+</body>
+</html>
