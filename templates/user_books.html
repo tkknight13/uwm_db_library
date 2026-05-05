@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Books - {{ selected_user.username }}</title>
+    <link rel="stylesheet" href="{% static 'css/user-styles.css' %}">
+</head>
+<body>
+
+<div class="header">
+    <ul>
+        <li><a href="{% url 'admin_home' %}">Home</a></li>
+        <li><a href="{% url 'add_book' %}">Add Book</a></li>
+        <li><a href="{% url 'view_users' %}">Users</a></li>
+        <li><a href="{% url 'logout' %}">Log Out</a></li>
+    </ul>
+</div>
+
+<h1>Books checked out by {{ selected_user.username }}</h1>
+
+<table class="users-table">
+    <tr>
+        <th>Book Title</th>
+        <th>Checked Out At</th>
+    </tr>
+    {% for book in books %}
+    <tr>
+        <td>{{ book.title }}</td>
+        <td>{{ book.checked_out_at }}</td>
+    </tr>
+    {% empty %}
+        <tr>
+            <td colspan="2"><em>No books currently checked out.</em></td>
+        </tr>
+    {% endfor %}
+</table>
+
+<a href="{% url 'view_users' %}">← Back to Users</a>
+
+</body>
+</html>
