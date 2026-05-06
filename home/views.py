@@ -197,3 +197,9 @@ def view_user_books(request, user_id):
     user = get_object_or_404(User, id=user_id)
     books = UsersBooks.objects.filter(user_id=user_id)
     return render(request, 'user_books.html', {'books': books, 'selected_user': user})
+
+def return_user_books(request, user_id, book_id):
+    user = get_object_or_404(User, id=user_id)
+    books = UsersBooks.objects.filter(user_id=user_id)
+    Checkout.objects.filter(user_id=user, book_id=book_id).delete()
+    return render(request, 'user_books.html', {'books': books, 'selected_user': user})
