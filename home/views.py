@@ -3,7 +3,7 @@ from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, get_object_or_404
-from home.models import Book, Checkout
+from home.models import Book, Checkout, UsersBooks
 from .forms import BookForm
 
 
@@ -52,7 +52,13 @@ def login_view(request):
 @login_required(login_url='login')
 @user_passes_test(is_admin, login_url='home')
 def admin_home(request):
-    return render(request, 'admin_home.html')
+    books = Book.objects.all()
+
+    for book in books:
+        checked_out = Checkout.objects.filter(book=book).count()
+        book.available_count = book.quantity - checked_out
+
+    return render(request, 'admin_home.html', {'books': books})
 
 
 @login_required(login_url='login')
@@ -110,6 +116,9 @@ def student_home(request):
     })
 
 def view_books(request):
+    query = request.GET.get('q', '')
+    books = Book.objects.filter(title__icontains=query) if query else Book.objects.all()
+    return render(request, 'view_books.html', {'books': books, 'query': query})
     books = Book.objects.all()
     return render(request, 'view_books.html', {'books': books})
 
@@ -166,3 +175,25 @@ def return_book(request, pk):
 
     checkout.delete()
     return redirect('student_home')
+
+
+@user_passes_test(is_admin, login_url='login')
+def view_users(request):
+    users = User.objects.all()
+    return render(request, 'view_users.html', {'users': users})
+
+
+@user_passes_test(is_admin, login_url='login')
+def delete_user(request, user_id):
+    if request.method == "POST":
+        user = get_object_or_404(User, id=user_id)
+
+        if user != request.user:
+            user.delete()
+    return redirect('view_users')
+
+@user_passes_test(is_admin, login_url='login')
+def view_user_books(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    books = UsersBooks.objects.filter(user_id=user_id)
+    return render(request, 'user_books.html', {'books': books, 'selected_user': user})

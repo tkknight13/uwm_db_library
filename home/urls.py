@@ -14,4 +14,7 @@ urlpatterns = [
     path('admin-home/edit/<int:pk>/', views.edit_book, name='edit_book'),
     path('admin-home/delete/<int:pk>/', views.delete_book, name='delete_book'),
     path('checkout/<int:pk>/', views.checkout_book, name='checkout_book'),
+    path('users/', views.view_users, name='view_users'),
+    path('delete_user/<int:user_id>/', views.delete_user, name='delete_user'),
+    path('user/<int:user_id>/books/', views.view_user_books, name='view_user_books'),
 ]
