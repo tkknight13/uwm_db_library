@@ -1,11 +1,17 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import Q
+from django.core.validators import RegexValidator
+
+isbn_validator = RegexValidator(
+    regex=r'^\d{13}$',
+    message='ISBN must be exactly 13 digits.'
+)
 
 class Book(models.Model):
     title = models.CharField(max_length=200, null=False, blank=False)
     author = models.CharField(max_length=200, null=False, blank=False)
-    isbn = models.CharField(max_length=13, null = False, blank=False, unique=True)
+    isbn = models.CharField(max_length=13, unique=True, validators=[isbn_validator])
     quantity = models.PositiveIntegerField(default=1, null=False, blank=False)
 
     def __str__(self):
