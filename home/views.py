@@ -204,5 +204,9 @@ def return_user_books(request, user_id, book_id):
     Checkout.objects.filter(user=user_id).delete()
     return render(request, 'user_books.html', {'books': books, 'selected_user': user})
 
+def book_detail(request, pk):
+    book = get_object_or_404(Book, pk=pk)
+    return render(request, 'book_detail.html', {'book': book})
+
 
 #this is a test
