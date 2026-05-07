@@ -27,6 +27,9 @@
     <tr>
         <td>{{ book.title }}</td>
         <td>{{ book.checked_out_at }}</td>
+        <td>
+        <a href="{% url 'return_book' selected_user.id book.id %}">Return</a>
+    </td>
     </tr>
     {% empty %}
         <tr>
