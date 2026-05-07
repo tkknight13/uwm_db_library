@@ -18,4 +18,5 @@ urlpatterns = [
     path('delete_user/<int:user_id>/', views.delete_user, name='delete_user'),
     path('user/<int:user_id>/books/', views.view_user_books, name='view_user_books'),
     path('user/<int:user_id>/books/<int:book_id>', views.return_user_books, name='return_book'),
+    path('book/<int:pk>/', views.book_detail, name='book_detail'),
 ]
