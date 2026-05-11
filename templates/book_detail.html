@@ -1,0 +1,8 @@
+<h1>{{ book.title }}</h1>
+
+<p><strong>Author:</strong> {{ book.author }}</p>
+<p><strong>ISBN:</strong> {{ book.isbn }}</p>
+<p><strong>Quantity:</strong> {{ book.quantity }}</p>
+<p><strong>Description:</strong> {{ book.description }}</p>
+
+<a href="{% url 'view_books' %}">Back</a>
