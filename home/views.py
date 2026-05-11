@@ -209,4 +209,3 @@ def book_detail(request, pk):
     return render(request, 'book_detail.html', {'book': book})
 
 
-#this is a test
