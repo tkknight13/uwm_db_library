@@ -9,17 +9,17 @@ This project is an example of a local library website created with the Django fr
    cd uwm_db_library
 
 3. ```bash
-python -m venv venv
-source venv/bin/activate        # Mac/Linux
-venv\Scripts\activate           # Windows
-pip install -r requirements.txt  
+   python -m venv venv
+   source venv/bin/activate        # Mac/Linux
+   venv\Scripts\activate           # Windows
+   pip install -r requirements.txt  
 
 
 4. ```bash
-python manage.py makemigrations   
-python manage.py migrate          
-python manage.py collectstatic   
-python manage.py runserver
+   python manage.py makemigrations   
+   python manage.py migrate          
+   python manage.py collectstatic   
+   python manage.py runserver
 
 5. Open in browser
    ```bash
